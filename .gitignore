@@ -1,0 +1,34 @@
+# SafeSphere - Git Ignore File
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Build Outputs (if any are added later)
+dist/
+build/
+
+# Dependencies (if npm is added later)
+node_modules/
+
+# Environment Files (if added later)
+.env
+.env.local
+.env.production
+
+.vercel

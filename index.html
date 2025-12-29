@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSphere - Detect Scams Before They Harm You</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>SafeSphere</span>
+            </div>
+            <button class="mobile-nav-toggle" aria-label="Open navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="sideNav" class="side-nav">
+                <button class="mobile-nav-close" aria-label="Close navigation">
+                    <i class="fas fa-times"></i>
+                </button>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#analyzer" class="nav-link">Analyzer</a>
+                    <a href="#tips" class="nav-link">Safety Tips</a>
+                    <a href="admin.html" class="nav-link admin-link">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Rule-Based Protection</span>
+                </div>
+                <h1 class="hero-title">SafeSphere</h1>
+                <p class="hero-tagline">Detect scams before they harm you.</p>
+                <p class="hero-description">
+                    SafeSphere uses advanced analysis to identify suspicious messages, phishing links, 
+                    and potential online scams. Simply paste any suspicious message or URL, and our 
+                    intelligent system will assess the risk level in real-time, helping you stay safe online.
+                </p>
+                <a href="#analyzer" class="btn-primary">
+                    Start Analysis <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="hero-image">
+                <div class="shield-animation">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-paste"></i>
+                    </div>
+                    <h3>1. Paste Content</h3>
+                    <p>Copy and paste any suspicious message, email, or URL into the analyzer.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>2. Content Analysis</h3>
+                    <p>Our system analyzes patterns, keywords, and URLs to detect potential threats.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>3. Get Results</h3>
+                    <p>Receive instant risk assessment with detailed explanations and recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analyzer Section -->
+    <section id="analyzer" class="analyzer">
+        <div class="container">
+            <h2 class="section-title">Scam Analyzer</h2>
+            <p class="section-subtitle">Paste any suspicious message, email, or URL below for instant analysis</p>
+            
+            <div class="analyzer-container">
+                <div class="input-section">
+                    <label for="contentInput" class="input-label">
+                        <i class="fas fa-search"></i> Enter Content to Analyze
+                    </label>
+                    <textarea 
+                        id="contentInput" 
+                        class="content-input" 
+                        placeholder="Paste your suspicious message, email, or URL here...&#10;&#10;Example:&#10;'URGENT! Your bank account has been suspended. Click here to verify: http://bank-verify.xyz/login'&#10;&#10;or&#10;&#10;'Congratulations! You've won $1,000,000! Send your OTP to claim your prize now!'"
+                        rows="8"
+                    ></textarea>
+                    <div class="input-actions">
+                        <button id="analyzeBtn" class="btn-analyze">
+                            <i class="fas fa-search-plus"></i> Analyze Content
+                        </button>
+                        <button id="clearBtn" class="btn-clear">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state" style="display: none;">
+                    <div class="loader"></div>
+                    <p>Analyzing content...</p>
+                </div>
+
+                <!-- Results Section -->
+                <div id="resultsSection" class="results-section" style="display: none;">
+                    <div class="results-header">
+                        <h3>Analysis Results</h3>
+                        <button id="newAnalysisBtn" class="btn-secondary">
+                            <i class="fas fa-redo"></i> New Analysis
+                        </button>
+                    </div>
+
+                    <!-- Risk Level Display -->
+                    <div id="riskDisplay" class="risk-display">
+                        <div class="risk-icon-wrapper">
+                            <i id="riskIcon" class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="risk-info">
+                            <h4 id="riskLevel" class="risk-level">Safe</h4>
+                            <p id="riskDescription" class="risk-description"></p>
+                        </div>
+                        <div class="risk-score">
+                            <div class="score-circle">
+                                <svg width="120" height="120">
+                                    <circle cx="60" cy="60" r="50" class="score-bg"></circle>
+                                    <circle id="scoreCircle" cx="60" cy="60" r="50" class="score-progress"></circle>
+                                </svg>
+                                <div class="score-text">
+                                    <span id="scoreValue">0</span>
+                                    <span class="score-label">Risk Score</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Analysis -->
+                    <div class="detailed-analysis">
+                        <h4><i class="fas fa-list-ul"></i> Detailed Analysis</h4>
+                        <div id="detailedResults" class="analysis-details"></div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="recommendations">
+                        <h4><i class="fas fa-lightbulb"></i> Recommendations</h4>
+                        <ul id="recommendationsList" class="recommendations-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Tips -->
+    <section id="tips" class="safety-tips">
+        <div class="container">
+            <h2 class="section-title">Scam Prevention Tips</h2>
+            <p class="section-subtitle">Stay informed and protect yourself from online threats</p>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Be Wary of Urgency</h3>
+                    <p>Scammers create false urgency to pressure you into acting quickly. Legitimate organizations give you time to think.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Verify Links</h3>
+                    <p>Always hover over links before clicking. Check the actual URL destination. Be suspicious of shortened URLs or misspelled domains.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Never Share OTPs</h3>
+                    <p>One-Time Passwords are for your eyes only. No legitimate company will ever ask you to share your OTP.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Verify Sender Identity</h3>
+                    <p>If you receive suspicious communications, contact the organization directly using official contact information, not details from the message.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Too Good to Be True</h3>
+                    <p>Free prizes, lottery winnings, and inheritance from unknown sources are classic scam tactics. If it sounds too good to be true, it probably is.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Protect Personal Info</h3>
+                    <p>Never provide sensitive information like passwords, credit card numbers, or social security numbers via email or text.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Check Email Addresses</h3>
+                    <p>Scammers use email addresses that look similar to legitimate ones. Carefully check the sender's email domain.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <h3>Look for Red Flags</h3>
+                    <p>Poor grammar, spelling errors, and unprofessional formatting are common signs of phishing attempts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics">
+        <div class="container">
+            <h2 class="section-title">Community Protection</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="stat-value" id="totalScans">0</div>
+                    <div class="stat-label">Total Scans</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-value" id="suspiciousCases">0</div>
+                    <div class="stat-label">Scams Detected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value" id="usersProtected">0</div>
+                    <div class="stat-label">Users Protected</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>SafeSphere</span>
+                    </div>
+                    <p class="footer-description">
+                        Empowering users with scam detection to create a safer digital world.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#analyzer">Analyzer</a></li>
+                        <li><a href="#tips">Safety Tips</a></li>
+                        <li><a href="admin.html">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#tips">Scam Prevention</a></li>
+                        <li><a href="#tips">Educational Tips</a></li>
+                        <li><a href="#analyzer">Try Analyzer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="disclaimer">
+                    <i class="fas fa-info-circle"></i>
+                    <p>
+                        <strong>Disclaimer:</strong> SafeSphere is an awareness tool and does not guarantee 100% accuracy. 
+                        Always exercise caution and verify suspicious content through official channels. 
+                        This tool is for educational purposes and should not be the sole basis for security decisions.
+                    </p>
+                </div>
+                <div class="footer-credits">
+                    <p>&copy; 2024 SafeSphere. Built for Open Innovation Hackathon.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/analyzer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
